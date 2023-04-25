@@ -7,16 +7,15 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
+import {useNavigate} from "react-router-dom"
 const pages = ["Favorites"];
 const settings = ["Favorites"];
 
 function Navbar() {
+    const navigate=useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -27,9 +26,7 @@ function Navbar() {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -48,7 +45,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate(`/`)}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -57,6 +54,7 @@ function Navbar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             LOGO
@@ -91,7 +89,13 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    navigate(`/${page}`);
+                  }}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -102,7 +106,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="a"
-            href=""
+            onClick={() => navigate(`/`)}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -112,6 +116,7 @@ function Navbar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              cursor:"pointer"
             }}
           >
             LOGO
@@ -120,7 +125,10 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate(`/${page}`);
+                }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -128,7 +136,6 @@ function Navbar() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-         
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
