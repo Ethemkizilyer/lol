@@ -4,13 +4,13 @@ import { ICards } from "../src/types/cards.types";
 import { favoritesSlice, cardSlice } from "../src/features";
 
 export interface AppStore {
-  champs: ICards[];
+  cards: ICards[];
   favorites: ICards[];
 }
 
 export const store = configureStore<AppStore>({
   reducer: {
-    champs: cardSlice.reducer,
+    cards: cardSlice.reducer,
     favorites: favoritesSlice.reducer,
   },
 });
