@@ -2,11 +2,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  list-style: none;
+  list-style-type: none;
+  color: white;
 }
+
+
+
 
 ::-webkit-scrollbar {
   width: 10px;
+
 }
 
 ::-webkit-scrollbar-track {
@@ -16,8 +21,33 @@
 ::-webkit-scrollbar-thumb {
   background: #9d9ba0;
   border-radius: 100vw;
+  height: 100px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a297ac;
+}
+
+
+@mixin breakpoints($point) {
+  // mobile
+  @if $point==sm {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+
+  // tablet
+  @if $point==md {
+    @media (min-width: 768px) and (max-width: 1024px) {
+      @content;
+    }
+ }
+    // desktop
+    @if $point==lg {
+      @media (min-width: 1025px) and (max-width: 1920px) {
+        @content;
+      }
+    }
+ 
 }
