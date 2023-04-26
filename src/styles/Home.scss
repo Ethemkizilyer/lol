@@ -7,9 +7,10 @@
     max-width: 100%;
     padding-bottom: 40px;
     &_title {
-        margin-top: 90px;
+        margin-top: 100px;
         margin-bottom: 50px;
         letter-spacing: 2px;
         text-transform: uppercase;
+        background: linear-gradient(45deg, rgb(155, 136, 136) 0 50%, rgb(255, 153, 0) 50% 100%);
     }
 }
