@@ -19,7 +19,7 @@ const Cards = () => {
   return (
     <div className="cards">
       {cards?.map((item, i) => (
-        <Tilty>
+        <Tilty key={item.id}>
           <li
             key={item.id}
             className={`card_card ${isIntersecting ? "show" : "hidden"}`}

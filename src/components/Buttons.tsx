@@ -19,9 +19,9 @@ const Buttons = ({ id }: { id: string }) => {
   return (
     <button aria-label="add to favorites" onClick={() => manageFavorites()}>
       {!findFav ? (
-        <AiOutlineHeart className="fav-icon" />
+        <AiOutlineHeart style={{ color: "red" }} className="fav-icon asd" />
       ) : (
-        <AiFillHeart className="fav-icon" />
+        <AiFillHeart className="fav-icon" style={{ color: "red" }} />
       )}
     </button>
   );
