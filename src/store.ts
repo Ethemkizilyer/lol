@@ -4,8 +4,8 @@ import { ICards } from "../src/types/cards.types";
 import { favoritesSlice, cardSlice } from "../src/features";
 
 export interface AppStore {
-  cards: ICards[] | any;
-  favorites: ICards[] | any;
+  cards: ICards[];
+  favorites: ICards[];
 }
 
 export const store = configureStore<AppStore>({

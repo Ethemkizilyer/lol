@@ -7,34 +7,37 @@ import {
   setLocalStorage,
 } from "../helpers/localstorage.utility";
 
-const initialState: any = {
-  car: [],
-};
+const initialState: ICards[] = [];
 
 export const favoritesSlice = createSlice({
   name: "favorites",
-  initialState,
+  initialState: getLocalStorage(LocalStorageTypes.FAVORITES)
+    ? JSON.parse(getLocalStorage(LocalStorageTypes.FAVORITES) as string)
+    : initialState,
   reducers: {
     getFavorite: (state) => {
-      const newState = JSON.parse(localStorage.getItem("favorites") as "any");
-      state.car = newState;
+      const newState = 
+      (getLocalStorage(LocalStorageTypes.FAVORITES));
+      const yu:ICards[] = JSON.parse(localStorage.getItem("favorites") as any);
+        console.log(yu);
+      return yu;
     },
     addFavorite: (state, action) => {
-      const newState = [...current(state.car), action.payload];
+      const newState = [...current(state), action.payload];
       setLocalStorage(LocalStorageTypes.FAVORITES, newState);
-      state.car = newState;
+    
+      return newState;
     },
     removeFavorite: (state, action) => {
-      const filteredState = current(state.car).filter(
+      const filteredState = current(state).filter(
         (p: ICards) => p.id !== action.payload.id
       );
-      setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);
-      state.car = filteredState;
+         setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);
+      return filteredState;
     },
   },
 });
 
-export const { getFavorite, addFavorite, removeFavorite } =
-  favoritesSlice.actions;
+export const {getFavorite, addFavorite, removeFavorite } = favoritesSlice.actions;
 
 export default favoritesSlice.reducer;
