@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppStore } from "../store";
-import { getCards, setCards } from "../features";
+import { getCards, getFavorite, setCards } from "../features";
 import { Link } from "react-router-dom";
 import Buttons from "./Buttons";
 import { Tooltip } from "@mui/material";
@@ -9,16 +9,17 @@ import "../styles/Cards.scss";
 import Tilty from "react-tilty";
 const Cards = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const cards = useSelector((state: AppStore) => state.cards);
+  const cards = useSelector((state: AppStore) => state?.cards);
   const [isIntersecting, setIsIntersecting] = useState(true);
 
   useEffect(() => {
-    getCards().then((data) => dispatch(setCards(Object.values(data))));
+    dispatch(getCards());
+    dispatch(getFavorite());
   }, []);
 
   return (
     <div className="cards">
-      {cards?.map((item, i) => (
+      {cards?.car.map((item: any, i: number) => (
         <Tilty key={item.id}>
           <li
             key={item.id}
@@ -36,7 +37,7 @@ const Cards = () => {
                 <div className="card_card_info_name">{item.id}</div>
                 <div className="card_card_info_title">{item.title}</div>
                 <div className="card_card_info_tags">
-                  {item.tags.map((tag) => {
+                  {item.tags.map((tag: "string") => {
                     return (
                       <Tooltip title={`${tag}`} arrow key={`${tag}`}>
                         <img
