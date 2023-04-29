@@ -1,35 +1,29 @@
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { AppDispatch, AppStore } from "../store";
+import { AppStore } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../features";
-import { ICards } from "../types/cards.types";
 
 const Buttons = ({ id }: { id: string }) => {
-  const dispatch = useDispatch<AppDispatch>();
-  
+  const dispatch = useDispatch();
   const favorites = useSelector((store: AppStore) => store.favorites);
   const cards = useSelector((store: AppStore) => store.cards);
 
+  const findFav = favorites?.find((fav: any) => fav.id === id);
+  const filterPerson = cards?.find((p:any) => p.id === id);
 
-
-  const findFav = favorites?.find((fav: ICards) => fav.id == id);
-  const filterPerson = cards?.find((p: ICards) => p.id == id);
-
-  const manageFavorites=():void=> {
-    console.log("object")
+  function manageFavorites() {
     findFav
       ? dispatch(removeFavorite(filterPerson))
       : dispatch(addFavorite(filterPerson));
   }
   return (
-    <div>
     <button aria-label="add to favorites" onClick={() => manageFavorites()}>
       {!findFav ? (
-        <AiOutlineHeart style={{ color: "red" }} className="fav_icon " />
+        <AiOutlineHeart style={{ color: "red" }} className="fav-icon asd" />
       ) : (
-        <AiFillHeart className="fav_icon" style={{ color: "red" }} />
+        <AiFillHeart className="fav-icon" style={{ color: "red" }} />
       )}
-    </button></div>
+    </button>
   );
 };
 

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppStore } from "../store";
-import { getCards, getFavorite, setCards } from "../features";
+import { addFavorite, getCards, getFavorite, removeFavorite, setCards } from "../features";
 import { Link } from "react-router-dom";
 import Buttons from "./Buttons";
 import { Tooltip } from "@mui/material";
 import "../styles/Cards.scss";
 import Tilty from "react-tilty";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 const Cards = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const cards = useSelector((state: AppStore) => state.cards);
@@ -15,7 +16,24 @@ const Cards = (): JSX.Element => {
   useEffect(() => {
     getCards().then((data) => dispatch(setCards(Object.values(data))));
     dispatch(getFavorite());
-  }, [dispatch]);
+  }, []);
+
+
+   
+   const favorites = useSelector((store: AppStore) => store.favorites);
+  console.log(favorites);
+
+   
+
+   function manageFavorites({id}:{id:string}) {
+    const findFav = favorites?.find((fav: any) => fav.id === id);
+    const filterPerson = cards?.find((p: any) => p.id === id);
+
+
+     findFav
+       ? dispatch(removeFavorite(filterPerson))
+       : dispatch(addFavorite(filterPerson));
+   }
 
   return (
     <div className="cards">
@@ -32,7 +50,17 @@ const Cards = (): JSX.Element => {
                   alt={item.image}
                 />
               </Link>
-              <Buttons id={item.id} />
+              {/* <Buttons id={item.id} /> */}
+              <button onClick={() => manageFavorites({ id: item.id })}>
+                {favorites?.filter((c) => c.id === item.id).length == 0 ? (
+                  <AiOutlineHeart
+                    style={{ color: "red" }}
+                    className="fav_icon asd"
+                  />
+                ) : (
+                  <AiFillHeart className="fav_icon" style={{ color: "red" }} />
+                )}
+              </button>
               <div className="card_card_info">
                 <div className="card_card_info_name">{item.id}</div>
                 <div className="card_card_info_title">{item.title}</div>
