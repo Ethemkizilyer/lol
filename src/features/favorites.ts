@@ -20,13 +20,13 @@ export const favoritesSlice = createSlice({
       return yu;
     },
     addFavorite: (state, action) => {
-      const newState = [...current(state), action.payload];
+      const newState = [...state, action.payload];
       setLocalStorage(LocalStorageTypes.FAVORITES, newState);
     
       return newState;
     },
     removeFavorite: (state, action) => {
-      const filteredState = current(state).filter(
+      const filteredState = state.filter(
         (p: ICards) => p.id !== action.payload.id
       );
          setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);

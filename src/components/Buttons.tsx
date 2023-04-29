@@ -6,6 +6,7 @@ import { ICards } from "../types/cards.types";
 
 const Buttons = ({ id }: { id: string }) => {
   const dispatch = useDispatch<AppDispatch>();
+  
   const favorites = useSelector((store: AppStore) => store.favorites);
   const cards = useSelector((store: AppStore) => store.cards);
 
