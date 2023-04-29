@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 
 const CardDetails = () => {
   const { id }: { id?: string | undefined } = useParams();
-  console.log(id);
+
   const [data,setData]= useState([])
 
   useEffect(() => {
     getChampData(id);
     // console.log(data[0].title)
-  }, []);
+  }, [id]);
 
   const getChampData = async (id: string | undefined) => {
     try {
@@ -19,7 +19,7 @@ const CardDetails = () => {
       );
       const results = await response.data.data;
       setData(Object.values(results));
-      console.log(Object.values(results))
+      // console.log(Object.values(results))
       return results;
     } catch (error) {
       console.log(error);

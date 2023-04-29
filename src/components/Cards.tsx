@@ -15,7 +15,7 @@ const Cards = (): JSX.Element => {
   useEffect(() => {
     getCards().then((data) => dispatch(setCards(Object.values(data))));
     dispatch(getFavorite());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="cards">

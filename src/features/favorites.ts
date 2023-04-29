@@ -16,10 +16,7 @@ export const favoritesSlice = createSlice({
     : initialState,
   reducers: {
     getFavorite: (state) => {
-      const newState = 
-      (getLocalStorage(LocalStorageTypes.FAVORITES));
       const yu:ICards[] = JSON.parse(localStorage.getItem("favorites") as any);
-        console.log(yu);
       return yu;
     },
     addFavorite: (state, action) => {

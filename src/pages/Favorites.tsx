@@ -10,10 +10,9 @@ import { getFavorite } from '../features'
 const Favorites = () => {
   const dispatch = useDispatch<AppDispatch>();
   const favorites=useSelector((state:AppStore)=>state.favorites)
-  useEffect(()=>{
-dispatch(getFavorite())
-  },[])
-  console.log(getFavorite());
+  useEffect(() => {
+    dispatch(getFavorite());
+  }, [dispatch]);
   return (
     <div className="home">
       <h1 className="home_title">Favorites</h1>
