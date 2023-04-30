@@ -7,31 +7,37 @@ import {
   setLocalStorage,
 } from "../helpers/localstorage.utility";
 
-const initialState: ICards[] = [];
+export interface sd {
+  cardss: ICards[] | undefined;
+ 
+}
+
+const initialState: sd = {
+  cardss: (JSON.parse(localStorage.getItem("favorites")) as ICards[]) || [],
+}; 
 
 export const favoritesSlice = createSlice({
   name: "favorites",
-  initialState: getLocalStorage(LocalStorageTypes.FAVORITES)
-    ? JSON.parse(getLocalStorage(LocalStorageTypes.FAVORITES) as string)
-    : initialState,
+  initialState,
   reducers: {
     getFavorite: (state) => {
-      const yu:ICards[] = JSON.parse(localStorage.getItem("favorites") as any);
-        console.log(yu);
-      return yu;
+      // console.log(JSON.parse(localStorage.getItem("favorites") as any));
+      // state= JSON.parse(localStorage.getItem("favorites") as any) || [];
+      // console.log(state)
     },
     addFavorite: (state, action) => {
-      const newState = [...current(state), action.payload];
-      setLocalStorage(LocalStorageTypes.FAVORITES, newState);
+      
+      state.cardss = [...state.cardss, action.payload];
+      setLocalStorage(LocalStorageTypes.FAVORITES, state.cardss);
+    console.log(state);
     
-      return newState;
     },
     removeFavorite: (state, action) => {
-      const filteredState = current(state).filter(
+      state.cardss = state.cardss.filter(
         (p: ICards) => p.id !== action.payload.id
       );
-         setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);
-      return filteredState;
+         setLocalStorage(LocalStorageTypes.FAVORITES, state.cardss);
+
     },
   },
 });

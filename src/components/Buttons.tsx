@@ -5,13 +5,14 @@ import { addFavorite, removeFavorite } from "../features";
 
 const Buttons = ({ id }: { id: string }) => {
   const dispatch = useDispatch();
-  const favorites = useSelector((store: AppStore) => store.favorites);
-  const cards = useSelector((store: AppStore) => store.cards);
+  const { cardss } = useSelector((state: AppStore) => state.favorites);
+  const cards = useSelector((state: AppStore) => state.cards);
 
-  const findFav = favorites?.find((fav: any) => fav.id === id);
+  const findFav = cardss?.find((fav: any) => fav.id === id);
   const filterPerson = cards?.find((p:any) => p.id === id);
 
   function manageFavorites() {
+    console.log("filterPerson");
     findFav
       ? dispatch(removeFavorite(filterPerson))
       : dispatch(addFavorite(filterPerson));

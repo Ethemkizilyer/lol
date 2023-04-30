@@ -7,10 +7,11 @@ import { Tooltip } from "@mui/material";
 import "../styles/Cards.scss";
 import Tilty from "react-tilty";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { ICards } from "types/cards.types";
 const Cards = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const cards = useSelector((state: AppStore) => state.cards);
-
+const {cardss} = useSelector((state: any) => state.favorites);
   useEffect(() => {
     getCards().then((data) => dispatch(setCards(Object.values(data))));
     dispatch(getFavorite());
@@ -18,15 +19,16 @@ const Cards = (): JSX.Element => {
 
 
    
-   const favorites = useSelector((store: AppStore) => store.favorites);
-  console.log(favorites);
+ 
 
    
 
    function manageFavorites({id}:{id:string}) {
-    const findFav = favorites?.find((fav: any) => fav.id === id);
+    const findFav = cardss.find((fav: any) => fav.id === id);
     const filterPerson = cards?.find((p: any) => p.id === id);
 
+console.log(filterPerson);
+console.log(findFav);
 
      findFav
        ? dispatch(removeFavorite(filterPerson))
@@ -37,10 +39,7 @@ const Cards = (): JSX.Element => {
     <div className="cards">
       {cards?.map((item, i) => (
         <Tilty key={item.id}>
-          <li
-            key={item.id}
-            className="card_card"
-          >
+          <li key={item.id} className="card_card">
             <div className="card_card_img">
               <Link to={`/cards/${item.id}`} className="card_card_link">
                 <img
@@ -50,7 +49,7 @@ const Cards = (): JSX.Element => {
               </Link>
               {/* <Buttons id={item.id} /> */}
               <button onClick={() => manageFavorites({ id: item.id })}>
-                {favorites?.filter((c) => c.id === item.id).length === 0 ? (
+                {cardss?.filter((c:any) => c.id === item.id).length === 0 ? (
                   <AiOutlineHeart
                     style={{ color: "red" }}
                     className="fav_icon asd"
