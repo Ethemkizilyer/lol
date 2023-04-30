@@ -1,0 +1,151 @@
+@import "styles/index.scss";
+
+.card_details {
+  display: flex;
+  margin-top: 65px;
+  width: 100%;
+  min-height: calc(100vh - 92px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+
+  @include breakpoints(sm) {
+    min-height: 100%;
+    margin-top: 55px;
+  }
+
+  &_main {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+    height: 560px;
+    background-size: cover;
+    object-fit: cover;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+    position: relative;
+
+    @include breakpoints(sm) {
+      height: 260px;
+      margin-bottom: 0px;
+    }
+
+    &_title {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(13, 17, 34, 0) 0%, #1e2234 100%);
+
+      h1 {
+        font-size: 80px;
+        font-family: "bold-lol", cursive;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        font-family: "bold-lol", cursive;
+        text-transform: uppercase;
+      }
+
+      @include breakpoints(sm) {
+        h1 {
+          font-size: 40px;
+        }
+
+        h2 {
+          font-size: 18px;
+        }
+      }
+
+      &_tags {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+      }
+
+      div > img {
+        margin: 0px 10px;
+        height: 45px;
+        width: auto;
+
+        @include breakpoints(sm) {
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  &_info {
+    width: 82%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    display: grid;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    // grid-template-rows: repeat(2, 1fr);
+    border: 1px solid #b29e9e;
+    font-family: "bold-lol", cursive;
+    font-size: 24px;
+    background-color: #b29e9e;
+
+    @include breakpoints(md) {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    @include breakpoints(sm) {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 12px;
+      background-color: transparent;
+    }
+
+    &_lore {
+      grid-area: 1 / 1 / 2 / 2;
+
+      &_p {
+        font-family: "regular-lol", cursive;
+        font-size: 16px;
+
+        button {
+          margin-left: 2px;
+          color: #dab257;
+          font-size: 11px;
+          border: none;
+          background: #1e2234;
+        }
+      }
+    }
+
+    &_lore,
+    &_spells,
+    &_skins {
+      background-color: #1e2234;
+      padding: 20px 30px;
+
+      h3 {
+        font-family: "bold-lol", cursive;
+        margin-bottom: 20px;
+
+        @include breakpoints(md) {
+          text-align: center;
+        }
+
+        @include breakpoints(sm) {
+          margin-bottom: 13px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

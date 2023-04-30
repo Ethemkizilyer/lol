@@ -5,6 +5,7 @@ import { AppDispatch, AppStore } from "../store";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom'
 import { Tooltip } from "@mui/material";
+import "../styles/Favorites.scss";
 import "../styles/Cards.scss";
 import Tilty from "react-tilty";
 import { addFavorite, getFavorite, removeFavorite } from '../features'
@@ -40,14 +41,11 @@ const Favorites = () => {
           </p>
         </div>
       ) : (
-        <ul className="champs_grid">
+        <ul className="cards">
           {cardss.map((item:any) => {
             return (
               <Tilty key={item.id} style={{ color: "white" }}>
-                <li
-                  key={item.id}
-                  // className={`card_card ${isIntersecting ? "show" : "hidden"}`}
-                >
+                <li key={item.id} className="card_card">
                   <div className="card_card_img">
                     <Link to={`/cards/${item.id}`} className="card_card_link">
                       <img
@@ -55,7 +53,7 @@ const Favorites = () => {
                         alt={item.image}
                       />
                     </Link>
-                 
+
                     {/* <Buttons id={item.id} /> */}
                     <button onClick={() => manageFavorites({ id: item.id })}>
                       {cardss?.filter((c: any) => c.id === item.id).length ===
