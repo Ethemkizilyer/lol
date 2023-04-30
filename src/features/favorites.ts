@@ -33,9 +33,10 @@ export const favoritesSlice = createSlice({
     
     },
     removeFavorite: (state, action) => {
-      state.cardss = state.cardss.filter(
-        (p: ICards) => p.id !== action.payload.id
-      );
+      const deneme:any = JSON.parse(localStorage.getItem("favorites"));
+      console.log(action.payload);
+      state.cardss = deneme.filter((p: any) => p.id !== action.payload.id);
+      
          setLocalStorage(LocalStorageTypes.FAVORITES, state.cardss);
 
     },

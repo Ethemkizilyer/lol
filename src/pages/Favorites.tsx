@@ -2,17 +2,32 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppStore } from "../store";
 // import Buttons from '../components/Buttons'
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom'
 import { Tooltip } from "@mui/material";
-// import "../styles/Cards.scss";
+import "../styles/Cards.scss";
 import Tilty from "react-tilty";
-import { getFavorite } from '../features'
+import { addFavorite, getFavorite, removeFavorite } from '../features'
 const Favorites = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {cardss}=useSelector((state:AppStore)=>state.favorites)
+  const cards=useSelector((state:AppStore)=>state.cards)
   useEffect(() => {
     dispatch(getFavorite());
   }, [dispatch]);
+
+
+  function manageFavorites({ id }: { id: string }) {
+    const findFav = cardss.find((fav: any) => fav.id === id);
+    const filterPerson = cards?.find((p: any) => p.id === id);
+
+    console.log(filterPerson);
+    console.log(findFav);
+
+    findFav
+      ? dispatch(removeFavorite(findFav))
+      : dispatch(addFavorite(filterPerson));
+  }
   return (
     <div className="home">
       <h1 className="home_title">Favorites</h1>
@@ -40,12 +55,39 @@ const Favorites = () => {
                         alt={item.image}
                       />
                     </Link>
+                 
                     {/* <Buttons id={item.id} /> */}
+                    <button onClick={() => manageFavorites({ id: item.id })}>
+                      {cardss?.filter((c: any) => c.id === item.id).length ===
+                      0 ? (
+                        <AiOutlineHeart
+                          style={{
+                            color: "red",
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
+                            fontSize: "2rem",
+                          }}
+                          className="fav_icon asd"
+                        />
+                      ) : (
+                        <AiFillHeart
+                          className="fav_icon"
+                          style={{
+                            color: "red",
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
+                            fontSize: "2rem",
+                          }}
+                        />
+                      )}
+                    </button>
                     <div className="card_card_info">
                       <div className="card_card_info_name">{item.id}</div>
                       <div className="card_card_info_title">{item.title}</div>
                       <div className="card_card_info_tags">
-                        {item.tags.map((tag:any) => {
+                        {item.tags.map((tag: any) => {
                           return (
                             <Tooltip title={`${tag}`} arrow key={`${tag}`}>
                               <img
